@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpStatus, HttpException, UseGuards } from '@nestjs/common';
 import { EstablecimientosService } from './establecimientos.service';
 import { CreateEstablecimientoDto } from './dto/create-establecimiento.dto';
+import { AuthGuard } from 'src/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('establecimientos')
 export class EstablecimientosController {
   constructor(private readonly establecimientosService: EstablecimientosService) {}
