@@ -1,16 +1,17 @@
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Empresa } from "./empresa.entity";
 
 @Table({
     tableName: 'usuarios'
 })
 export class Usuario extends Model {
     @PrimaryKey
-    @AutoIncrement
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
         field: 'idUsuario'
     })
-    idUsuario: number
+    idUsuario: String
 
     @Column
     nombre: string
@@ -31,4 +32,7 @@ export class Usuario extends Model {
 
     @Column
     password: string;
+
+    @HasMany(()=> Empresa)
+    empresas: Empresa[];
 }

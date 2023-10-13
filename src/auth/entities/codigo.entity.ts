@@ -1,4 +1,4 @@
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
 
 
 @Table({
@@ -7,8 +7,9 @@ import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from "seque
 
 export class Codigo extends Model {
     @PrimaryKey
-    @AutoIncrement
     @Column({
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
         field: 'idCodigo'
     })
     idCodigo: number;

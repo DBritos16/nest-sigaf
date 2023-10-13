@@ -5,6 +5,7 @@ import { loginUsuarioDto } from './dto/login-usuario.dto';
 import { enviarEmail } from 'src/helpers/sendEmail';
 import { generateKey } from 'src/helpers/generateKey';
 import { generateCode } from 'src/helpers/generateCode';
+import { CreateEmpresaDto } from './dto/create-empresa.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -12,11 +13,13 @@ export class AuthController {
   constructor(private usuariosService: AuthService) { }
 
   @Post('/register')
-  async register(@Body() usuario: CreateUsuarioDto, @Res() res) {
+  async register(@Body('data') usuario: CreateUsuarioDto, @Body('empresa') empresa: CreateEmpresaDto, @Res() res) {
+      console.log(empresa)
+     await this.usuariosService.register(usuario, empresa);
 
-    const newUsuario = await this.usuariosService.register(usuario);
-
-    return res.json(newUsuario);
+    return res.json({
+      message: 'Registrado con exito'
+    });
   }
 
   @Post('/login')

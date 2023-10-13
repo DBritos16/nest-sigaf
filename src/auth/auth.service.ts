@@ -1,4 +1,4 @@
-import { Injectable, Inject, UnauthorizedException, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { Usuario } from './entities/usuario.entity';
 import * as bcrypt from 'bcrypt';
@@ -6,21 +6,29 @@ import { loginUsuarioDto } from './dto/login-usuario.dto';
 import { JwtService } from '@nestjs/jwt'
 import { Codigo } from './entities/codigo.entity';
 import { CreateCodigoDto } from './dto/create-codigo.dto';
+import { ValidateKeyCodeDto } from './dto/validate-keycode.dto';
+import { Empresa } from './entities/empresa.entity';
+import { CreateEmpresaDto } from './dto/create-empresa.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     @Inject('usuariosRepository') private usuarioModel: typeof Usuario,
     @Inject('codigosRepository') private codigoModel: typeof Codigo,
+    @Inject('empresasRepository') private empresaModel: typeof Empresa,
     private jwtService: JwtService 
     ){}
   
   
-  register(usuario: CreateUsuarioDto){
+  async register(usuario: CreateUsuarioDto, empresa: CreateEmpresaDto){
     try {
       const hassPassword = bcrypt.hashSync(usuario.password, 10);
       
-      return this.usuarioModel.create({...usuario, password: hassPassword});
+      const newUsuario = await this.usuarioModel.create({...usuario, password: hassPassword});
+    
+      await this.empresaModel.create({...empresa, idDueño: newUsuario.idUsuario});
+
+      return HttpStatus.ACCEPTED
 
     } catch (error) {
       console.log(error);
@@ -44,12 +52,7 @@ export class AuthService {
   
       const passwordIsValid = bcrypt.compareSync(usuario.password, findUsuario.password);
   
-      if(!passwordIsValid){
-        return new HttpException({
-          status: HttpStatus.UNAUTHORIZED,
-          msg: 'Contraseña incorrecta'
-        }, HttpStatus.UNAUTHORIZED).getResponse();
-      }
+      if(!passwordIsValid) throw new HttpException('Contraseña incorrecta', HttpStatus.UNAUTHORIZED);
 
       const token = this.jwtService.sign({idUsuario: findUsuario.idUsuario});
   
@@ -62,10 +65,7 @@ export class AuthService {
 
     } catch (error) {
       console.log(error);
-      return new HttpException({
-        status: HttpStatus.FORBIDDEN,
-        msg: 'Ocurrio un error al intentar iniciar sesión',
-      }, HttpStatus.FORBIDDEN).getResponse();
+      throw error
     }
   }
 
@@ -78,4 +78,22 @@ export class AuthService {
     return this.codigoModel.findOne({where: {key}})
   }
 
+  async validateAndDeleteKeyCode(data: ValidateKeyCodeDto) {
+
+    const { key, codigo, correo } = data;
+
+    const validate = await this.codigoModel.findOne({
+      where: {
+        key, codigo, correo
+      }
+    });
+
+    if(!validate) throw new HttpException('Error de autenticación', HttpStatus.UNAUTHORIZED);
+
+    await this.codigoModel.destroy({
+      where: { key, codigo, correo }
+    });
+
+    return HttpStatus.ACCEPTED
+  }
 }
