@@ -1,5 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Usuario } from "./usuario.entity";
+import { Establecimiento } from "src/establecimientos/entities/establecimiento.entity";
 
 @Table({
     tableName: 'empresas'
@@ -25,4 +26,8 @@ export class Empresa extends Model {
 
     @BelongsTo(() => Usuario)
     usuario: Usuario;
+
+
+    @HasMany(()=> Establecimiento)
+    establecimientos: Establecimiento[];
 }
