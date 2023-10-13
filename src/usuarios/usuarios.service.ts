@@ -11,7 +11,7 @@ import { Empresa } from './entities/empresa.entity';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 
 @Injectable()
-export class AuthService {
+export class UsuariosService {
   constructor(
     @Inject('usuariosRepository') private usuarioModel: typeof Usuario,
     @Inject('codigosRepository') private codigoModel: typeof Codigo,

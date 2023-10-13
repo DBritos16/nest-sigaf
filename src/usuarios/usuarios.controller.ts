@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { loginUsuarioDto } from './dto/login-usuario.dto';
 import { enviarEmail } from 'src/helpers/sendEmail';
@@ -8,9 +8,9 @@ import { generateCode } from 'src/helpers/generateCode';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 
 @Controller('auth')
-export class AuthController {
+export class UsuariosController {
 
-  constructor(private usuariosService: AuthService) { }
+  constructor(private usuariosService: UsuariosService) { }
 
   @Post('/register')
   async register(@Body('data') usuario: CreateUsuarioDto, @Body('empresa') empresa: CreateEmpresaDto, @Res() res) {
@@ -42,11 +42,7 @@ export class AuthController {
 
       await this.usuariosService.registerKey({ key, codigo, correo });
 
-      enviarEmail({
-        subject: 'Confirma tu cuenta',
-        codigo,
-        toEmail: correo
-      });
+      
 
       return res.json({ key });
     }

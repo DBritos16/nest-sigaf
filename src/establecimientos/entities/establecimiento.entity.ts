@@ -1,5 +1,5 @@
 import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey } from 'sequelize-typescript'
-import { Empresa } from 'src/auth/entities/empresa.entity';
+import { Empresa } from 'src/usuarios/entities/empresa.entity';
 
 @Table({
     tableName: 'establecimientos'

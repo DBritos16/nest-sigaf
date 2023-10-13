@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Codigo } from 'src/auth/entities/codigo.entity';
-import { Empresa } from 'src/auth/entities/empresa.entity';
-import { Usuario } from 'src/auth/entities/usuario.entity';
+import { Codigo } from 'src/usuarios/entities/codigo.entity';
+import { Empresa } from 'src/usuarios/entities/empresa.entity';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { Establecimiento } from 'src/establecimientos/entities/establecimiento.entity';
 
 export const databaseProviders = [
@@ -12,7 +12,7 @@ export const databaseProviders = [
         dialect: 'postgres'
       });
       sequelize.addModels([Usuario, Codigo, Empresa, Establecimiento]);
-      await sequelize.sync({force: true});
+      await sequelize.sync({force: false});
       console.log('BD connected')
       return sequelize;
     },

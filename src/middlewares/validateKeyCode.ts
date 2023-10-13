@@ -1,11 +1,11 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { AuthService } from 'src/auth/auth.service';
-import { ValidateKeyCodeDto } from 'src/auth/dto/validate-keycode.dto';
+import { UsuariosService } from 'src/usuarios/usuarios.service';
+import { ValidateKeyCodeDto } from 'src/usuarios/dto/validate-keycode.dto';
 
 @Injectable()
 export class ValidateKeyCode implements NestMiddleware {
-    constructor(private usuariosService: AuthService){}
+    constructor(private usuariosService: UsuariosService){}
     async use(req, res: Response, next: NextFunction){
         
         const data: ValidateKeyCodeDto = req.query
