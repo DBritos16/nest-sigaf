@@ -9,12 +9,15 @@ import { campanasProviders } from '../campanas/campanas.providers';
 import { CampanasService } from '../campanas/campanas.service';
 import { parcelaProviders } from '../parcelas/parcelas.providers';
 import { ParcelasService } from '../parcelas/parcelas.service';
+import { insumoProviders } from '../insumos/insumos.providers';
+import { InsumosService } from '../insumos/insumos.service';
 
 @Module({
   controllers: [CultivosController],
   providers: [CultivosService, ...cultivoProviders, ...authProviders, ...establecimientoProviders, AuthService, 
     ...campanasProviders, CampanasService,
-    ...parcelaProviders, ParcelasService
+    ...parcelaProviders, ParcelasService,
+    ...insumoProviders, InsumosService
   ],
 })
 export class CultivosModule {}

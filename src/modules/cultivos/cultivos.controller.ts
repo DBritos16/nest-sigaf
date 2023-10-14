@@ -6,6 +6,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { EstableciemientosGuard } from '../auth/guards/estableciemientos.guard';
 import { CampanasService } from '../campanas/campanas.service';
 import { ParcelasService } from '../parcelas/parcelas.service';
+import { InsumosService } from '../insumos/insumos.service';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('cultivos')
@@ -13,7 +14,8 @@ export class CultivosController {
   constructor(
     private readonly cultivosService: CultivosService,
     private readonly campanasService: CampanasService,
-    private readonly parcelasService: ParcelasService
+    private readonly parcelasService: ParcelasService,
+    private readonly insumosService: InsumosService
     ) {}
 
 
@@ -39,6 +41,8 @@ export class CultivosController {
 
     const parcelaUpdated = await this.parcelasService.editParcela({enUso: true, color: 'green'}, cultivo.idParcela);
 
+    await this.insumosService.restarStock(cultivo.stock-cultivo.totalCultivado, cultivo.idInsumo)
+    
     return res.json(parcelaUpdated[1][0]);
 
   }

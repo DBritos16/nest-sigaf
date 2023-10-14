@@ -1,4 +1,5 @@
 export class CreateCultivoDto {
+    stock?:number;
     totalCultivado: number;
     cosechado?: boolean;
     duracion: number;
