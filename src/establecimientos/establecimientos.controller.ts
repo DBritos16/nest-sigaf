@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpStatus, HttpException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, HttpStatus, HttpException, UseGuards, Res } from '@nestjs/common';
 import { EstablecimientosService } from './establecimientos.service';
 import { CreateEstablecimientoDto } from './dto/create-establecimiento.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @UseGuards(AuthGuard)
 @Controller('establecimientos')
@@ -10,15 +10,18 @@ export class EstablecimientosController {
 
 
   @Get()
-  async obtenerEstablecimientos(@Request() req: {idEmpresa: string}){
+  async obtenerEstablecimientos(@Request() req: {idEmpresa: string}, @Res() res){
     const establecimientos = await this.establecimientosService.obtenerEstablecimientos(req.idEmpresa);
+
+    return res.json(establecimientos);
   }
 
 
   @Post()
-  async crearEstablecieminto(@Body() data: CreateEstablecimientoDto){
+  async crearEstablecieminto(@Body() data: CreateEstablecimientoDto, @Request() req: {idEmpresa: string}){
     try {
-      await this.establecimientosService.crearEstablecimiento(data);
+      
+      await this.establecimientosService.crearEstablecimiento({...data, idEmpresa: req.idEmpresa});
       
       return HttpStatus.ACCEPTED;
     } catch (error) {

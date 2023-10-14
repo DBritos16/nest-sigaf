@@ -14,7 +14,7 @@ import { ValidateKeyCode } from 'src/middlewares/validateKeyCode';
   controllers: [UsuariosController],
   providers: [UsuariosService, ...authProviders, ...codigoProviders, ...empresaProviders],
 })
-export class AuthModule implements NestModule {
+export class UsuariosModule implements NestModule {
   configure(consumer: MiddlewareConsumer){
     consumer
       .apply(ValidateKeyCode)
