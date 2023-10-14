@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsArray, IsUUID } from 'class-validator';
 
 export class CreateEstablecimientoDto {
     @IsNotEmpty()
@@ -18,11 +18,11 @@ export class CreateEstablecimientoDto {
     localidad: string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     geoUbicacion: number[][][];
 
     @IsNotEmpty()
-    @IsString()
+    @IsArray()
     center: number[];
 
     @IsNotEmpty()
@@ -30,7 +30,9 @@ export class CreateEstablecimientoDto {
     area: number;
 
     @IsNotEmpty()
-    @IsString()
+    @IsNumber()
     zoom: number;
 
+
+    idEmpresa: string;
 }

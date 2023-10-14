@@ -35,7 +35,9 @@ export class Establecimiento extends Model {
     })
     center: number[];
 
-    @Column
+    @Column({
+        type: DataType.FLOAT
+    })
     area: number;
 
     @Column
