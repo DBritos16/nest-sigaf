@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { DatabaseModule } from './database/database.module';
+import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ConfigModule } from '@nestjs/config';
-import { EstablecimientosModule } from './establecimientos/establecimientos.module';
+import { MorganModule, MorganInterceptor } from 'nest-morgan'
+import { DatabaseModule } from './database/database.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthModule } from './auth/auth.module';
+import { EstablecimientosModule } from './establecimientos/establecimientos.module';
 import { ParcelasModule } from './parcelas/parcelas.module';
 import { InsumosModule } from './insumos/insumos.module';
 
@@ -11,8 +13,14 @@ import { InsumosModule } from './insumos/insumos.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env'
-    }), DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule],
+    }), MorganModule,
+    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MorganInterceptor('dev')
+    }
+  ],
 })
 export class AppModule { }
