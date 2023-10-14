@@ -7,6 +7,8 @@ import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 import { Categoria } from 'src/modules/insumos/entities/categoria.entity';
 import { UnidadDeMedida } from 'src/modules/insumos/entities/unidadDeMedida.entity';
+import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
+import { Campana } from 'src/modules/campanas/entities/campana.entity';
 
 export const databaseProviders = [
   {
@@ -15,7 +17,7 @@ export const databaseProviders = [
       const sequelize = new Sequelize(process.env.DATABASE_URL, {
         dialect: 'postgres'
       });
-      sequelize.addModels([Usuario, Codigo, Empresa, Establecimiento, Parcela, Insumo, Categoria, UnidadDeMedida]);
+      sequelize.addModels([Usuario, Codigo, Empresa, Establecimiento, Parcela, Insumo, Categoria, UnidadDeMedida, Cultivo, Campana]);
       await sequelize.sync({force: false});
       console.log('BD connected')
       return sequelize;

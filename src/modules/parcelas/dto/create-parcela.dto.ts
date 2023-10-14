@@ -1,21 +1,27 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsString, IsOptional} from "class-validator";
 
 export class CreateParcelaDto {
     @IsNotEmpty()
     @IsArray()
-    geoUbicacion: number[][][];
+    geoUbicacion?: number[][][];
     
     @IsNotEmpty()
     @IsArray()
-    center: number[];
+    center?: number[];
     
     @IsNotEmpty()
     @IsString()
-    area: number;
+    area?: number;
 
     @IsNumber()
     @IsNotEmpty()
-    zoom: number;
+    zoom?: number;
 
-    idEstablecimiento: string;
+    @IsOptional()
+    color?: string;
+
+    @IsOptional()
+    enUso?: boolean;
+
+    idEstablecimiento?: string;
 }

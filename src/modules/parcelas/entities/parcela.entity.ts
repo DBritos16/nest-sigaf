@@ -1,4 +1,5 @@
-import { Table, Model, PrimaryKey, Column, DataType, BelongsTo, ForeignKey} from 'sequelize-typescript'
+import { Table, Model, PrimaryKey, Column, DataType, BelongsTo, ForeignKey, HasMany} from 'sequelize-typescript'
+import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
 import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 
 
@@ -50,4 +51,7 @@ export class Parcela extends Model{
     })
     idEstablecimiento: string;
 
+
+    @HasMany(()=> Cultivo)
+    cultivos: Cultivo[];
 }

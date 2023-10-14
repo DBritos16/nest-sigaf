@@ -1,6 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreateParcelaDto } from './dto/create-parcela.dto';
 import { Parcela } from './entities/parcela.entity';
+import { Cultivo } from '../cultivos/entities/cultivo.entity';
+import { Insumo } from '../insumos/entities/insumo.entity';
+import { Campana } from '../campanas/entities/campana.entity';
 
 @Injectable()
 export class ParcelasService {
@@ -12,6 +15,17 @@ export class ParcelasService {
         where: {
             idEstablecimiento
         },
+        include: [{
+            model: Cultivo,
+            required: false,
+            where: {cosechado: false},
+            include: [{
+              model: Insumo
+            },{
+                model: Campana, 
+                where: {isActive: true}
+            }],
+        }],
         order: [['createdAt', 'ASC']],
     })
  }	
