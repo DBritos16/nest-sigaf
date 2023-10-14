@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
-import { Empresa } from 'src/usuarios/entities/empresa.entity';
-import { Establecimiento } from 'src/establecimientos/entities/establecimiento.entity';
+import { Usuario } from 'src/modules/usuarios/entities/usuario.entity';
+import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 @Injectable()
 export class AuthService {
   constructor(

@@ -1,5 +1,5 @@
 import { Table, Model, PrimaryKey, Column, DataType, BelongsTo, ForeignKey} from 'sequelize-typescript'
-import { Establecimiento } from 'src/establecimientos/entities/establecimiento.entity';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 import { Categoria } from './categoria.entity';
 import { UnidadDeMedida } from './unidadDeMedida.entity';
 

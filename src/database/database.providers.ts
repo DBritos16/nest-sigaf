@@ -1,12 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
-import { Codigo } from 'src/usuarios/entities/codigo.entity';
-import { Empresa } from 'src/usuarios/entities/empresa.entity';
-import { Usuario } from 'src/usuarios/entities/usuario.entity';
-import { Establecimiento } from 'src/establecimientos/entities/establecimiento.entity';
-import { Parcela } from 'src/parcelas/entities/parcela.entity';
-import { Insumo } from 'src/insumos/entities/insumo.entity';
-import { Categoria } from 'src/insumos/entities/categoria.entity';
-import { UnidadDeMedida } from 'src/insumos/entities/unidadDeMedida.entity';
+import { Codigo } from 'src/modules/usuarios/entities/codigo.entity';
+import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
+import { Usuario } from 'src/modules/usuarios/entities/usuario.entity';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
+import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
+import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
+import { Categoria } from 'src/modules/insumos/entities/categoria.entity';
+import { UnidadDeMedida } from 'src/modules/insumos/entities/unidadDeMedida.entity';
 
 export const databaseProviders = [
   {

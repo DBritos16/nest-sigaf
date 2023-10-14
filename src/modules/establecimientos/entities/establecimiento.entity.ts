@@ -1,6 +1,6 @@
 import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript'
-import { Parcela } from 'src/parcelas/entities/parcela.entity';
-import { Empresa } from 'src/usuarios/entities/empresa.entity';
+import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
+import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
 
 @Table({
     tableName: 'establecimientos'

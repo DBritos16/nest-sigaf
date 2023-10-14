@@ -3,11 +3,11 @@ import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ConfigModule } from '@nestjs/config';
 import { MorganModule, MorganInterceptor } from 'nest-morgan'
 import { DatabaseModule } from './database/database.module';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { AuthModule } from './auth/auth.module';
-import { EstablecimientosModule } from './establecimientos/establecimientos.module';
-import { ParcelasModule } from './parcelas/parcelas.module';
-import { InsumosModule } from './insumos/insumos.module';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { EstablecimientosModule } from './modules/establecimientos/establecimientos.module';
+import { ParcelasModule } from './modules/parcelas/parcelas.module';
+import { InsumosModule } from './modules/insumos/insumos.module';
 
 @Module({
   imports: [

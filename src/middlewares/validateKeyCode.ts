@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { UsuariosService } from 'src/usuarios/usuarios.service';
-import { ValidateKeyCodeDto } from 'src/usuarios/dto/validate-keycode.dto';
+import { UsuariosService } from 'src/modules/usuarios/usuarios.service';
+import { ValidateKeyCodeDto } from 'src/modules/usuarios/dto/validate-keycode.dto';
 
 @Injectable()
 export class ValidateKeyCode implements NestMiddleware {

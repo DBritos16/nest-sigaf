@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { authProviders } from 'src/usuarios/usuarios.providers';
-import { establecimientoProviders } from 'src/establecimientos/establecimiento.providers';
+import { authProviders } from 'src/modules/usuarios/usuarios.providers';
+import { establecimientoProviders } from 'src/modules/establecimientos/establecimiento.providers';
 
 @Module({
   controllers: [],

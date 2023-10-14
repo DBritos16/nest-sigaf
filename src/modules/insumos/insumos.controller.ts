@@ -3,8 +3,8 @@ import { Response } from 'express';
 import { InsumosService } from './insumos.service';
 import { CreateInsumoDto } from './dto/create-insumo.dto';
 import { ReqInsumoDto } from './dto/req-insumo.dto';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { EstableciemientosGuard } from 'src/auth/guards/estableciemientos.guard';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { EstableciemientosGuard } from 'src/modules/auth/guards/estableciemientos.guard';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('insumos')

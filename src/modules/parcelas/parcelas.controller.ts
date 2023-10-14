@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Put, Param, Delete, Req, Res, UseGuards } 
 import { ParcelasService } from './parcelas.service';
 import { CreateParcelaDto } from './dto/create-parcela.dto';
 import { ReqParcelaDto } from './dto/req-parcela.dto';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
-import { EstableciemientosGuard } from 'src/auth/guards/estableciemientos.guard';
+import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
+import { EstableciemientosGuard } from 'src/modules/auth/guards/estableciemientos.guard';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('parcelas')
