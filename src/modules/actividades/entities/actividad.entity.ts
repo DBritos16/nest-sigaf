@@ -20,7 +20,10 @@ export class Actividad extends Model {
     @Column
     descripcion: string
 
-    @Column
+    @Column({
+        type: DataType.DATE,
+        defaultValue: new Date()
+    })
     fecha: Date
 
     @ForeignKey(()=> Cultivo)

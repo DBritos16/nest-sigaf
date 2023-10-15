@@ -1,6 +1,6 @@
 export class CreateActividadeDto {
     titulo: string;
     descripcion: string;
-    fecha: Date;
+    fecha?: Date;
     idCultivo?: string;
 }

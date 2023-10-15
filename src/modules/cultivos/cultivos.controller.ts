@@ -45,7 +45,6 @@ export class CultivosController {
     await this.actividadesService.postActividad({
       titulo: 'Sembrado',
       descripcion: `Se sembro ${cultivo.totalCultivado} ${insumo.unidadDeMedida.nombre} de ${insumo.nombre}`,
-      fecha: new Date(),
       idCultivo: newCultivo.idCultivo
     })
     
