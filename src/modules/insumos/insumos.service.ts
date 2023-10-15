@@ -9,6 +9,10 @@ export class InsumosService {
   constructor(@Inject('insumosRepository') private insumoModel: typeof Insumo){}
 
 
+  getInsumoInfo(idInsumo: string){
+    return this.insumoModel.findOne({where: {idInsumo}, include: [UnidadDeMedida]})
+    }
+
   getInsumos(idEstablecimiento: string){
     return this.insumoModel.findAll({
       where: {

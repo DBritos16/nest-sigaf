@@ -6,4 +6,5 @@ export class CreateCultivoDto {
     idInsumo: string;
     idCampana: string;
     idParcela: string;
+    idEstablecimiento: string;
 }

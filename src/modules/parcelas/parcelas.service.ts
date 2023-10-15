@@ -4,6 +4,7 @@ import { Parcela } from './entities/parcela.entity';
 import { Cultivo } from '../cultivos/entities/cultivo.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
 import { Campana } from '../campanas/entities/campana.entity';
+import { Actividad } from '../actividades/entities/actividad.entity';
 
 @Injectable()
 export class ParcelasService {
@@ -24,6 +25,8 @@ export class ParcelasService {
             },{
                 model: Campana, 
                 where: {isActive: true}
+            },{
+                model: Actividad
             }],
         }],
         order: [['createdAt', 'ASC']],

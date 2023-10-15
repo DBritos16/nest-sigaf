@@ -44,8 +44,8 @@ export class UsuariosService {
   async login(usuario: loginUsuarioDto){
 
     try {
-      const findUsuario = await this.usuarioModel.findOne({where: {correo: usuario.correo}});
-  
+      const findUsuario = await this.usuarioModel.findOne({where: {correo: usuario.correo}, include: [Empresa]});
+      console.log(findUsuario)
       if(!findUsuario){
         return findUsuario;
       }
@@ -57,9 +57,10 @@ export class UsuariosService {
       const token = this.jwtService.sign({idUsuario: findUsuario.idUsuario});
   
       return {
-        nombre: findUsuario.nombre,
+        nombre: findUsuario.nombre, 
         apellido: findUsuario.apellido,
         rol: findUsuario.rol,
+        empresa: findUsuario.empresas[0].nombre,
         token
       }
 
