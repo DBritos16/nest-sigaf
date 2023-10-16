@@ -45,7 +45,7 @@ export class UsuariosService {
 
     try {
       const findUsuario = await this.usuarioModel.findOne({where: {correo: usuario.correo}, include: [Empresa]});
-      console.log(findUsuario)
+     
       if(!findUsuario){
         return findUsuario;
       }

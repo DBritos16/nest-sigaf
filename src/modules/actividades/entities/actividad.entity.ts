@@ -22,7 +22,7 @@ export class Actividad extends Model {
 
     @Column({
         type: DataType.DATE,
-        defaultValue: new Date()
+        defaultValue: DataType.NOW
     })
     fecha: Date
 

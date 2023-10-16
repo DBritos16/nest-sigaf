@@ -14,7 +14,7 @@ export class UsuariosController {
 
   @Post('/register')
   async register(@Body('data') usuario: CreateUsuarioDto, @Body('empresa') empresa: CreateEmpresaDto, @Res() res) {
-      console.log(empresa)
+    
      await this.usuariosService.register(usuario, empresa);
 
     return res.json({

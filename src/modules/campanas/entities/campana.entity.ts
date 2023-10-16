@@ -15,7 +15,7 @@ export class Campana extends Model {
 
     @Column({
         type: DataType.DATE,
-        defaultValue: new Date()
+        defaultValue: DataType.NOW
     })
     inicio: Date;
 
