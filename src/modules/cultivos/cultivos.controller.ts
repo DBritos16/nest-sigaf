@@ -29,7 +29,7 @@ export class CultivosController {
       return res.json(cultivo);
     }
 
-
+ 
   @Post()
   async postCultivo(@Body() cultivo: CreateCultivoDto, @Req() req, @Res() res: Response){
 

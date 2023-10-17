@@ -12,7 +12,7 @@ export class ActividadesController {
     return this.actividadesService.getActividades();
   }
 
-  @Post()
+  @Post() 
   async postActividad(@Body() actividad: CreateActividadeDto, @Res() res: Response){
     const newActividad =  await this.actividadesService.postActividad(actividad);
 

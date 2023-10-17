@@ -11,7 +11,7 @@ import { parcelaProviders } from '../parcelas/parcelas.providers';
 import { ParcelasService } from '../parcelas/parcelas.service';
 import { insumoProviders } from '../insumos/insumos.providers';
 import { InsumosService } from '../insumos/insumos.service';
-import { actividadesProviders } from '../actividades/actividades.providers';
+import { actividadesProviders, insumoActividadProviders } from '../actividades/actividades.providers';
 import { ActividadesService } from '../actividades/actividades.service';
 
 @Module({
@@ -20,7 +20,8 @@ import { ActividadesService } from '../actividades/actividades.service';
     ...campanasProviders, CampanasService,
     ...parcelaProviders, ParcelasService,
     ...insumoProviders, InsumosService,
-    ...actividadesProviders, ActividadesService
+    ...actividadesProviders, ActividadesService,
+    ...insumoActividadProviders
   ],
 })
 export class CultivosModule {}

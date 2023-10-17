@@ -1,4 +1,5 @@
 import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript'
+import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
 import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
 
@@ -55,4 +56,7 @@ export class Establecimiento extends Model {
 
     @HasMany(()=> Parcela)
     parcelas: Parcela[]
+
+    @HasMany(()=>Empleado)
+    empleados: Empleado[]
 }

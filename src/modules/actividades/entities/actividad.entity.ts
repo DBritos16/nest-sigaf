@@ -1,5 +1,8 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, HasMany, BelongsToMany } from 'sequelize-typescript';
 import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
+import { EmpleadoActividad } from './empleadoActividad.entity';
+import { InsumoActividad } from './insumoActividad.entity';
+import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 
 
 @Table({
@@ -34,4 +37,7 @@ export class Actividad extends Model {
  
     @BelongsTo(()=>Cultivo)
     cultivo: Cultivo;
+
+    @BelongsToMany(()=> Insumo, ()=> InsumoActividad)
+    insumos: Insumo[];
 }

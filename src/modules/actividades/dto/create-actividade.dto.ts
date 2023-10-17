@@ -3,4 +3,6 @@ export class CreateActividadeDto {
     descripcion: string;
     fecha?: Date;
     idCultivo?: string;
+    empleados?: string[];
+    idInsumos?: string[]; 
 }
