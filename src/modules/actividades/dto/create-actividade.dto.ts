@@ -4,5 +4,5 @@ export class CreateActividadeDto {
     fecha?: Date;
     idCultivo?: string;
     empleados?: string[];
-    idInsumos?: string[]; 
+    idInsumos?: object[]; 
 }

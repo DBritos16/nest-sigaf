@@ -8,8 +8,8 @@ export class ActividadesController {
   constructor(private readonly actividadesService: ActividadesService) {}
 
   @Get()
-  getActividades() {
-    return this.actividadesService.getActividades();
+  getActividades(idCultivo: string) {
+    return this.actividadesService.getActividades(idCultivo);
   }
 
   @Post() 

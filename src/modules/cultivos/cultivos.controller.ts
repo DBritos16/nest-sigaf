@@ -45,7 +45,11 @@ export class CultivosController {
     await this.actividadesService.postActividad({
       titulo: 'Sembrado',
       descripcion: `Se sembro ${cultivo.totalCultivado} ${insumo.unidadDeMedida.nombre} de ${insumo.nombre}`,
-      idCultivo: newCultivo.idCultivo
+      idCultivo: newCultivo.idCultivo,
+      idInsumos: [{
+        idInsumo: cultivo.idInsumo,
+        utilizado: cultivo.totalCultivado
+      }]
     })
     
     await this.insumosService.restarStock(cultivo.stock-cultivo.totalCultivado, cultivo.idInsumo)

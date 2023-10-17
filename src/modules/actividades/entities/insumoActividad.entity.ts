@@ -13,6 +13,9 @@ export class InsumoActividad extends Model {
     })
     idInsumoActividad: string;
 
+    @Column
+    utilizado: number;
+
     @ForeignKey(()=> Actividad)
     @Column({
         type: DataType.UUID,
