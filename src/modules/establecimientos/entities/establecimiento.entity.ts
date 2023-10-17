@@ -54,9 +54,13 @@ export class Establecimiento extends Model {
     @BelongsTo(()=>Empresa)
     empresa: Empresa
 
-    @HasMany(()=> Parcela)
+    @HasMany(()=> Parcela, {
+        onDelete: 'CASCADE'
+    })
     parcelas: Parcela[]
 
-    @HasMany(()=>Empleado)
+    @HasMany(()=>Empleado, {
+        onDelete: 'CASCADE'
+    })
     empleados: Empleado[]
 }

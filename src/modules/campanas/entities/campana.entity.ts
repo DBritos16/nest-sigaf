@@ -28,7 +28,9 @@ export class Campana extends Model {
     })
     isActive: boolean;
 
-    @HasMany(()=>Cultivo)
+    @HasMany(()=>Cultivo, {
+        onDelete: 'CASCADE'
+    })
     cultivos: Cultivo[];
 
 

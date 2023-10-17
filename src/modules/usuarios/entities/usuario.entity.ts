@@ -33,6 +33,8 @@ export class Usuario extends Model {
     @Column
     password: string;
 
-    @HasMany(()=> Empresa)
+    @HasMany(()=> Empresa, {
+        onDelete: 'CASCADE'
+    })
     empresas: Empresa[];
 }

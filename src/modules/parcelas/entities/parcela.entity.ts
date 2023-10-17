@@ -56,6 +56,8 @@ export class Parcela extends Model{
     idEstablecimiento: string;
 
 
-    @HasMany(()=> Cultivo)
+    @HasMany(()=> Cultivo, {
+        onDelete: 'CASCADE'
+    })
     cultivos: Cultivo[];
 }

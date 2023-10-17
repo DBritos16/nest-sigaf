@@ -55,6 +55,8 @@ export class Cultivo extends Model {
     @BelongsTo(()=>Insumo)
     insumo: Insumo;
 
-    @HasMany(()=> Actividad)
+    @HasMany(()=> Actividad, {
+        onDelete: 'CASCADE'
+    })
     actividades: Actividad[];
 }
