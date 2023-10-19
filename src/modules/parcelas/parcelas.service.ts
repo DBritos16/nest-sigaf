@@ -5,6 +5,8 @@ import { Cultivo } from '../cultivos/entities/cultivo.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
 import { Campana } from '../campanas/entities/campana.entity';
 import { Actividad } from '../actividades/entities/actividad.entity';
+import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
+import { Categoria } from '../insumos/entities/categoria.entity';
 
 @Injectable()
 export class ParcelasService {
@@ -16,6 +18,7 @@ export class ParcelasService {
         where: {
             idEstablecimiento
         },
+        order: [['createdAt', 'DESC']],
         include: [{
             model: Cultivo,
             required: false,
@@ -26,12 +29,21 @@ export class ParcelasService {
                 model: Campana, 
                 where: {isActive: true}
             },{
-                model: Actividad
+                model: Actividad,
+                include: [{
+                    model: Insumo, 
+                    attributes: {exclude: ['createdAt', 'updatedAt', 'idCategoria', 'idUnidadDeMedida']},
+                    include: [{
+                        model: UnidadDeMedida, attributes: ['nombre']
+                    },{
+                        model: Categoria, attributes: ['nombre']
+                    }]
+                }],
             }],
         }],
-        order: [['createdAt', 'ASC']],
-    })
- }	
+    },)
+ }
+
 
  getParcela(idParcela: string){
     return this.parcelasModel.findByPk(idParcela);
