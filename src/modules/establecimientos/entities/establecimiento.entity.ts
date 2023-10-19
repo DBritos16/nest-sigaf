@@ -1,5 +1,6 @@
 import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript'
 import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
+import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
 import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
 
@@ -63,4 +64,9 @@ export class Establecimiento extends Model {
         onDelete: 'CASCADE'
     })
     empleados: Empleado[]
+
+    @HasMany(()=> Insumo, {
+        onDelete: 'CASCADE'
+    })
+    insumos: Insumo[]
 }
