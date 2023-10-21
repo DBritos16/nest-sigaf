@@ -47,7 +47,7 @@ export class UsuariosService {
       const findUsuario = await this.usuarioModel.findOne({where: {correo: usuario.correo}, include: [Empresa]});
      
       if(!findUsuario){
-        return findUsuario;
+        throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND);
       }
   
       const passwordIsValid = bcrypt.compareSync(usuario.password, findUsuario.password);
