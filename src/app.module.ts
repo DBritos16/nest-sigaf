@@ -12,13 +12,14 @@ import { CultivosModule } from './modules/cultivos/cultivos.module';
 import { CampanasModule } from './modules/campanas/campanas.module';
 import { ActividadesModule } from './modules/actividades/actividades.module';
 import { EmpleadosModule } from './modules/empleados/empleados.module';
+import { StockModule } from './modules/stock/stock.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env'
     }), MorganModule,
-    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule],
+    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule, StockModule],
   controllers: [],
   providers: [
     {

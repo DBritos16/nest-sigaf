@@ -49,7 +49,8 @@ export class CultivosController {
       idInsumos: [{
         idInsumo: cultivo.idInsumo,
         utilizado: cultivo.totalCultivado
-      }]
+      }],
+      empleados: []
     })
     
     await this.insumosService.restarStock(cultivo.stock-cultivo.totalCultivado, cultivo.idInsumo)
@@ -58,5 +59,18 @@ export class CultivosController {
 
     return res.json(parcelaUpdated[1][0]);
 
+  }
+
+
+  @Put('cosechar/:idCultivo')
+  async cosechar(@Param('idCultivo') idCultivo: string, @Res() res: Response){
+    const cosechado = await this.cultivosService.cosechar(idCultivo);
+
+    //@ts-ignore
+    await this.parcelasService.editParcela({enUso: false, color: '#fff'}, cosechado[1][0].idParcela);
+
+    return res.json({
+      message: 'Cultivo cosechado'
+    });
   }
 }

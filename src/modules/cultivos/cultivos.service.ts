@@ -38,5 +38,13 @@ export class CultivosService {
     return this.cultivoModel.create({...cultivo});
   }
 
-
+  cosechar(idCultivo: string){
+    return this.cultivoModel.update({
+      cosechado: true
+    }, {
+      where: {
+        idCultivo
+      }, returning: true
+    });
+  }
 }

@@ -13,6 +13,7 @@ import { Actividad } from 'src/modules/actividades/entities/actividad.entity';
 import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { EmpleadoActividad } from 'src/modules/actividades/entities/empleadoActividad.entity';
 import { InsumoActividad } from 'src/modules/actividades/entities/insumoActividad.entity';
+import { Stock } from 'src/modules/stock/entities/stock.entity';
 
 export const databaseProviders = [
   {
@@ -35,7 +36,9 @@ export const databaseProviders = [
         Actividad, 
         Empleado, 
         EmpleadoActividad, 
-        InsumoActividad]);
+        InsumoActividad,
+        Stock
+      ]);
       await sequelize.sync({force: false});
       console.log('BD connected')
       return sequelize;
