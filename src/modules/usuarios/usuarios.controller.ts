@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { loginUsuarioDto } from './dto/login-usuario.dto';
@@ -6,10 +6,8 @@ import { enviarEmail } from 'src/helpers/sendEmail';
 import { generateKey } from 'src/helpers/generateKey';
 import { generateCode } from 'src/helpers/generateCode';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
-import { ThrottlerGuard } from '@nestjs/throttler'
-
+i
 @Controller('auth')
-@UseGuards(ThrottlerGuard)
 export class UsuariosController {
   
   constructor(private usuariosService: UsuariosService) { }
