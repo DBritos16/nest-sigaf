@@ -6,7 +6,7 @@ import { enviarEmail } from 'src/helpers/sendEmail';
 import { generateKey } from 'src/helpers/generateKey';
 import { generateCode } from 'src/helpers/generateCode';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
-i
+
 @Controller('auth')
 export class UsuariosController {
   
