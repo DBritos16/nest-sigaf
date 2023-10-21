@@ -5,12 +5,15 @@ import { InsumoActividad } from './entities/insumoActividad.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { Categoria } from '../insumos/entities/categoria.entity';
+import { EmpleadoActividad } from './entities/empleadoActividad.entity';
+import { Empleado } from '../empleados/entities/empleado.entity';
 
 @Injectable()
 export class ActividadesService {
   constructor(
     @Inject('actividadesRepository') private actividadModel: typeof Actividad,
-    @Inject('insumoActividadRepository') private insumoActividadModel: typeof InsumoActividad
+    @Inject('insumoActividadRepository') private insumoActividadModel: typeof InsumoActividad,
+    @Inject('empleadoActividadRepository') private empleadoActividadModel: typeof EmpleadoActividad
     ){}
  
 
@@ -44,7 +47,7 @@ export class ActividadesService {
           model: Categoria,
           attributes: ['nombre']
         }],
-      },
+      }, Empleado
     ]});
   }
 
@@ -59,7 +62,18 @@ export class ActividadesService {
       }
     })
 
+    const empleadosActividades = actividad.empleados.map(empleado => {
+      return {
+        idEmpleado: empleado,
+        idActividad: newActividad.idActividad
+      }
+    })
+
     await this.insumoActividadModel.bulkCreate(insumosActividades);
+    
+    if(actividad.empleados){
+      await this.empleadoActividadModel.bulkCreate(empleadosActividades);
+    }
 
     return this.getActividad(newActividad.idActividad);
     

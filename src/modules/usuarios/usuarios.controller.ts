@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res, Query, UseGuards } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { loginUsuarioDto } from './dto/login-usuario.dto';
@@ -6,22 +6,25 @@ import { enviarEmail } from 'src/helpers/sendEmail';
 import { generateKey } from 'src/helpers/generateKey';
 import { generateCode } from 'src/helpers/generateCode';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
+import { ThrottlerGuard } from '@nestjs/throttler'
 
 @Controller('auth')
+@UseGuards(ThrottlerGuard)
 export class UsuariosController {
-
+  
   constructor(private usuariosService: UsuariosService) { }
-
+  
   @Post('/register')
   async register(@Body('data') usuario: CreateUsuarioDto, @Body('empresa') empresa: CreateEmpresaDto, @Res() res) {
     
-     await this.usuariosService.register(usuario, empresa);
-
+    await this.usuariosService.register(usuario, empresa);
+    
     return res.json({
       message: 'Registrado con exito'
     });
   }
-
+  
+  
   @Post('/login')
   async login(@Body() usuario: loginUsuarioDto, @Res() res) {
     const login = await this.usuariosService.login(usuario);

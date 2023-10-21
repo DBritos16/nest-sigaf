@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey } from 'sequelize-typescript'
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript'
 import { Actividad } from './actividad.entity';
 import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 
@@ -12,5 +12,23 @@ export class EmpleadoActividad extends Model {
         defaultValue: DataType.UUIDV4
     })
     idEmpleadoActividad: string;
+
+    @ForeignKey(()=> Actividad)
+    @Column({
+        type: DataType.UUID,
+    })
+    idActividad: string;
+
+    @BelongsTo(()=>Actividad)
+    actividad: Actividad;
+
+    @ForeignKey(()=> Empleado)
+    @Column({
+        type: DataType.UUID,
+    })
+    idEmpleado: string;
+
+    @BelongsTo(()=> Empleado)
+    empleado: Empleado;
 
 }

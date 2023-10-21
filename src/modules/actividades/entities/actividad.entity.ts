@@ -3,6 +3,7 @@ import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
 import { EmpleadoActividad } from './empleadoActividad.entity';
 import { InsumoActividad } from './insumoActividad.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
+import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 
 
 @Table({
@@ -40,4 +41,7 @@ export class Actividad extends Model {
 
     @BelongsToMany(()=> Insumo, ()=> InsumoActividad)
     insumos: Insumo[];
+
+    @BelongsToMany(()=> Empleado, ()=> EmpleadoActividad)
+    empleados: Empleado[];
 }

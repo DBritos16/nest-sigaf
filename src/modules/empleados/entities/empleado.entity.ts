@@ -1,4 +1,5 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, HasMany, BelongsToMany } from 'sequelize-typescript';
+import { Actividad } from 'src/modules/actividades/entities/actividad.entity';
 import { EmpleadoActividad } from 'src/modules/actividades/entities/empleadoActividad.entity';
 import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 
@@ -18,7 +19,7 @@ export class Empleado extends Model {
     nombre: string
 
     @Column
-    apellio: string;
+    apellido: string;
 
     @Column
     dni: string;
@@ -31,7 +32,7 @@ export class Empleado extends Model {
 
     @Column({
         defaultValue: 'empleado'
-    })
+    }) 
     rol: string;
 
     @Column
@@ -49,5 +50,7 @@ export class Empleado extends Model {
     @BelongsTo(()=> Establecimiento)
     establecimiento: Establecimiento;
 
+    @BelongsToMany(()=> Actividad, ()=> EmpleadoActividad)
+    actividades: Actividad[];
     
 }
