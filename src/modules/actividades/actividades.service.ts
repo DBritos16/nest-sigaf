@@ -12,6 +12,7 @@ import { Empleado } from '../empleados/entities/empleado.entity';
 export class ActividadesService {
   constructor(
     @Inject('actividadesRepository') private actividadModel: typeof Actividad,
+    @Inject('insumosRepository') private insumoModel: typeof Insumo,
     @Inject('insumoActividadRepository') private insumoActividadModel: typeof InsumoActividad,
     @Inject('empleadoActividadRepository') private empleadoActividadModel: typeof EmpleadoActividad
     ){}
@@ -55,7 +56,7 @@ export class ActividadesService {
   async postActividad(actividad: CreateActividadeDto){
     const newActividad = await this.actividadModel.create({...actividad});
 
-    const insumosActividades = actividad.idInsumos.map(insumo => {
+    const insumosActividades: any[] = actividad.idInsumos.map(insumo => {
       return {
         ...insumo,
         idActividad: newActividad.idActividad,
@@ -70,6 +71,10 @@ export class ActividadesService {
     })
 
     await this.insumoActividadModel.bulkCreate(insumosActividades);
+
+    insumosActividades.forEach(async insumo => {
+      await this.insumoModel.update({utilizado: insumo.utilizado}, {where: {idInsumo: insumo.idInsumo}});
+    })
     
     if(actividad.empleados){
       await this.empleadoActividadModel.bulkCreate(empleadosActividades);

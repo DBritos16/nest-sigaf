@@ -48,7 +48,10 @@ export class InsumosService {
     });
   }
 
-  restarStock(stock: number, idInsumo: string){
-    return this.insumoModel.update({stock}, {where: {idInsumo}});
+  utilizarStock(stock: number, idInsumo: string){
+    return this.insumoModel.update({utilizado: stock}, {where: {idInsumo}});
   }
+
+
+
 }

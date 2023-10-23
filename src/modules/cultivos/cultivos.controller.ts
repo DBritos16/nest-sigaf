@@ -53,8 +53,6 @@ export class CultivosController {
       empleados: []
     })
     
-    await this.insumosService.restarStock(cultivo.stock-cultivo.totalCultivado, cultivo.idInsumo)
-    
     const parcelaUpdated = await this.parcelasService.editParcela({enUso: true, color: 'green'}, cultivo.idParcela);
 
     return res.json(parcelaUpdated[1][0]);
