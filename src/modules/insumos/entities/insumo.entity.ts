@@ -26,7 +26,8 @@ export class Insumo extends Model {
     stock: number;
 
     @Column({
-        type: DataType.FLOAT
+        type: DataType.FLOAT,
+        defaultValue: 0
     })
     utilizado: number;
 
