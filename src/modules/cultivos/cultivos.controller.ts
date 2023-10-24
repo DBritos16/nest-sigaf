@@ -36,9 +36,17 @@ export class CultivosController {
     const final = new Date();
     final.setMonth(final.getMonth() + cultivo.duracion);
 
-    const campana = await this.campanasService.postCampana({final, idInsumo: cultivo.idInsumo});
+    const isCampanaActive = await this.campanasService.isCampanaActive(cultivo.idInsumo);
+    let idCampana = '';
 
-    const newCultivo = await this.cultivosService.postCultivo({...cultivo, idCampana: campana.idCampana, idEstablecimiento: req.idEstablecimiento});
+    if(!isCampanaActive){
+      const campana = await this.campanasService.postCampana({final, idInsumo: cultivo.idInsumo});
+      idCampana = campana.idCampana;
+    } else {
+      idCampana = isCampanaActive.idCampana;
+    }
+
+    const newCultivo = await this.cultivosService.postCultivo({...cultivo, idCampana, idEstablecimiento: req.idEstablecimiento});
 
     const insumo = await this.insumosService.getInsumoInfo(cultivo.idInsumo);
 
