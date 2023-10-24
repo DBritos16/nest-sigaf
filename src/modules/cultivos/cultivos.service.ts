@@ -14,7 +14,8 @@ export class CultivosService {
   getCultivo(idParcela: string){
     return this.cultivoModel.findOne({
       where: {
-        idParcela
+        idParcela,
+        cosechado: false
       },
       include: [Insumo, Campana, {
         model: Actividad,
