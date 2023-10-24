@@ -40,4 +40,13 @@ export class InsumosController {
 
     return res.json(deletedInsumo);
   }
+
+  @Put('renovar/:idInsumo')
+  async renovarStock(@Param('idInsumo') idInsumo: string,@Body('stock') stock: number, @Res() res: Response){
+    await this.insumosService.renovarStock(stock, idInsumo);
+
+    return res.json({
+      message: 'Stock renovado'
+    })
+  }
 }

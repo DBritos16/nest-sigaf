@@ -3,6 +3,7 @@ import { CreateInsumoDto } from './dto/create-insumo.dto';
 import { Insumo } from './entities/insumo.entity';
 import { Categoria } from './entities/categoria.entity';
 import { UnidadDeMedida } from './entities/unidadDeMedida.entity';
+import sequelize from 'sequelize';
 
 @Injectable()
 export class InsumosService {
@@ -49,7 +50,11 @@ export class InsumosService {
   }
 
   utilizarStock(stock: number, idInsumo: string){
-    return this.insumoModel.update({utilizado: stock}, {where: {idInsumo}});
+    return this.insumoModel.update({utilizado: sequelize.literal(`utilizado + ${stock}`)}, {where: {idInsumo}});
+  }
+
+  renovarStock(stock: number, idInsumo: string){
+    return this.insumoModel.update({stock: sequelize.literal(`stock + ${stock}`)}, {where: {idInsumo}});
   }
 
 

@@ -7,6 +7,7 @@ import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { Categoria } from '../insumos/entities/categoria.entity';
 import { EmpleadoActividad } from './entities/empleadoActividad.entity';
 import { Empleado } from '../empleados/entities/empleado.entity';
+import sequelize from 'sequelize';
 
 @Injectable()
 export class ActividadesService {
@@ -73,7 +74,8 @@ export class ActividadesService {
     await this.insumoActividadModel.bulkCreate(insumosActividades);
 
     insumosActividades.forEach(async insumo => {
-      await this.insumoModel.update({utilizado: insumo.utilizado}, {where: {idInsumo: insumo.idInsumo}});
+      console.log(insumo)
+      await this.insumoModel.update({utilizado: sequelize.literal(`utilizado + ${parseInt(insumo.utilizado)}`)}, {where: {idInsumo: insumo.idInsumo}});
     })
     
     if(actividad.empleados){
