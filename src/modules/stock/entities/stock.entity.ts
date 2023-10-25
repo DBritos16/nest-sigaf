@@ -13,9 +13,14 @@ export class Stock extends Model {
     @Column
     idStock: string;
     
-    @Column
+    @Column({
+        type: DataType.FLOAT
+    })
     stock: number;
     
-    @Column
+    @Column({
+        type: DataType.FLOAT,
+        defaultValue: 0
+    })
     vendidos: number;
 }

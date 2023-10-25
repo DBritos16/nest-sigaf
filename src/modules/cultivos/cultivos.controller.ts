@@ -8,6 +8,8 @@ import { CampanasService } from '../campanas/campanas.service';
 import { ParcelasService } from '../parcelas/parcelas.service';
 import { InsumosService } from '../insumos/insumos.service';
 import { ActividadesService } from '../actividades/actividades.service';
+import { StockService } from '../stock/stock.service';
+import { CreateStockDto } from './dto/create-stock.dto';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('cultivos')
@@ -17,7 +19,8 @@ export class CultivosController {
     private readonly campanasService: CampanasService,
     private readonly parcelasService: ParcelasService,
     private readonly insumosService: InsumosService,
-    private readonly actividadesService: ActividadesService
+    private readonly actividadesService: ActividadesService,
+    private readonly stockService: StockService
     ) {}
 
 
@@ -69,10 +72,11 @@ export class CultivosController {
   }
 
 
-  @Put('cosechar/:idCultivo')
-  async cosechar(@Param('idCultivo') idCultivo: string, @Res() res: Response){
+  @Post('cosechar')
+  async cosechar(@Body() cosecha: CreateStockDto, idCultivo: string, @Req() req, @Res() res: Response){
     const cosechado = await this.cultivosService.cosechar(idCultivo);
-
+    
+    await this.stockService.postStock({...cosecha, idEstablecimiento: req.idEstablecimiento});
     //@ts-ignore
     await this.parcelasService.editParcela({enUso: false, color: '#fff'}, cosechado[1][0].idParcela);
 

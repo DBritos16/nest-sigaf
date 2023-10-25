@@ -13,6 +13,8 @@ import { insumoProviders } from '../insumos/insumos.providers';
 import { InsumosService } from '../insumos/insumos.service';
 import { actividadesProviders, empleadoActividadProviders, insumoActividadProviders } from '../actividades/actividades.providers';
 import { ActividadesService } from '../actividades/actividades.service';
+import { stockProviders } from '../stock/stock.providers';
+import { StockService } from '../stock/stock.service';
 
 @Module({
   controllers: [CultivosController],
@@ -22,7 +24,8 @@ import { ActividadesService } from '../actividades/actividades.service';
     ...insumoProviders, InsumosService,
     ...actividadesProviders, ActividadesService,
     ...insumoActividadProviders,
-    ...empleadoActividadProviders
+    ...empleadoActividadProviders,
+    ...stockProviders, StockService
   ],
 })
 export class CultivosModule {}
