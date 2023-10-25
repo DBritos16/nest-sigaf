@@ -14,7 +14,7 @@ export class InsumoActividad extends Model {
     idInsumoActividad: string;
 
     @Column
-    utilizado: number;
+    stockUtilizado: number;
 
     @ForeignKey(()=> Actividad)
     @Column({

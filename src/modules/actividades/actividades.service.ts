@@ -64,6 +64,7 @@ export class ActividadesService {
       }
     })
 
+    console.log(insumosActividades)
     const empleadosActividades = actividad.empleados.map(empleado => {
       return {
         idEmpleado: empleado,
@@ -75,7 +76,7 @@ export class ActividadesService {
 
     insumosActividades.forEach(async insumo => {
       console.log(insumo)
-      await this.insumoModel.update({utilizado: sequelize.literal(`utilizado + ${parseInt(insumo.utilizado)}`)}, {where: {idInsumo: insumo.idInsumo}});
+      await this.insumoModel.update({stockUtilizado: sequelize.literal(`"stockUtilizado" + ${parseInt(insumo.stockUtilizado)}`)}, {where: {idInsumo: insumo.idInsumo}});
     })
     
     if(actividad.empleados){

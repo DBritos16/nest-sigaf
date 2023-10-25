@@ -29,7 +29,7 @@ export class Insumo extends Model {
         type: DataType.FLOAT,
         defaultValue: 0
     })
-    utilizado: number;
+    stockUtilizado: number;
 
     @Column
     duracion: number;

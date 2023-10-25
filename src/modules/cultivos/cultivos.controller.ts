@@ -56,12 +56,13 @@ export class CultivosController {
       idCultivo: newCultivo.idCultivo,
       idInsumos: [{
         idInsumo: cultivo.idInsumo,
-        utilizado: cultivo.totalCultivado
+        stockUtilizado: cultivo.totalCultivado
       }],
       empleados: []
     })
-    
+
     const parcelaUpdated = await this.parcelasService.editParcela({enUso: true, color: 'green'}, cultivo.idParcela);
+
 
     return res.json(parcelaUpdated[1][0]);
 
