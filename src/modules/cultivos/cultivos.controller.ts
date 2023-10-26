@@ -73,8 +73,8 @@ export class CultivosController {
 
 
   @Post('cosechar')
-  async cosechar(@Body() cosecha: CreateStockDto, idCultivo: string, @Req() req, @Res() res: Response){
-    const cosechado = await this.cultivosService.cosechar(idCultivo);
+  async cosechar(@Body() cosecha: CreateStockDto, @Req() req, @Res() res: Response){
+    const cosechado = await this.cultivosService.cosechar(cosecha.idCultivo);
     
     await this.stockService.postStock({...cosecha, idEstablecimiento: req.idEstablecimiento});
     //@ts-ignore

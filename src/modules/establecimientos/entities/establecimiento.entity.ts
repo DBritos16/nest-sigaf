@@ -2,6 +2,7 @@ import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey, HasM
 import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
+import { Stock } from 'src/modules/stock/entities/stock.entity';
 import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
 
 @Table({
@@ -69,4 +70,9 @@ export class Establecimiento extends Model {
         onDelete: 'CASCADE'
     })
     insumos: Insumo[]
+
+    @HasMany(()=> Stock, {
+        onDelete: 'CASCADE'
+    })
+    stock: Stock[]
 }

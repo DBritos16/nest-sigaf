@@ -1,4 +1,6 @@
-import { Table, Model, PrimaryKey, Column, DataType} from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
+import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 
 @Table({
     tableName: 'stock'
@@ -23,4 +25,22 @@ export class Stock extends Model {
         defaultValue: 0
     })
     vendidos: number;
+
+    @ForeignKey(()=> Insumo)
+    @Column({
+        type: DataType.UUID
+    })
+    idInsumo: string;
+
+    @BelongsTo(()=> Insumo)
+    insumo: Insumo
+
+    @ForeignKey(()=> Establecimiento)
+    @Column({
+        type: DataType.UUID
+    })
+    idEstablecimiento: string;
+
+    @BelongsTo(()=> Establecimiento)
+    establecimiento: Establecimiento
 }

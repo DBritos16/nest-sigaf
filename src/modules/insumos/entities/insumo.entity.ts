@@ -6,6 +6,7 @@ import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
 import { Campana } from 'src/modules/campanas/entities/campana.entity';
 import { InsumoActividad } from 'src/modules/actividades/entities/insumoActividad.entity';
 import { Actividad } from 'src/modules/actividades/entities/actividad.entity';
+import { Stock } from 'src/modules/stock/entities/stock.entity';
 
 @Table({
     tableName: 'insumos'
@@ -64,14 +65,19 @@ export class Insumo extends Model {
 
     @BelongsTo(()=> UnidadDeMedida)
     unidadDeMedida: UnidadDeMedida
-
+    
     @HasMany(()=> Cultivo)
-    cultivos: Cultivo[];
+    cultivos: Cultivo[];    
 
     @HasMany(()=> Campana)
     campanas: Campana[];
 
     @BelongsToMany(()=> Actividad, ()=> InsumoActividad)
     actividades: Actividad[];
+
+    @HasMany(()=> Stock, {
+        onDelete: 'CASCADE'
+    })
+    stocks: Stock[];
 }
  
