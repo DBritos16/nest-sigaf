@@ -13,16 +13,17 @@ import { CampanasModule } from './modules/campanas/campanas.module';
 import { ActividadesModule } from './modules/actividades/actividades.module';
 import { EmpleadosModule } from './modules/empleados/empleados.module';
 import { StockModule } from './modules/stock/stock.module';
+import { webSocketGateway } from './modules/webSocket/webSocket.gateway';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env'
     }), MorganModule,
-    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule, StockModule],
+    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule, StockModule, webSocketGateway],
   controllers: [],
   providers: [
-    {
+    { 
       provide: APP_INTERCEPTOR,
       useClass: MorganInterceptor('dev')
     }
