@@ -14,6 +14,7 @@ import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { EmpleadoActividad } from 'src/modules/actividades/entities/empleadoActividad.entity';
 import { InsumoActividad } from 'src/modules/actividades/entities/insumoActividad.entity';
 import { Stock } from 'src/modules/stock/entities/stock.entity';
+import { SemillaCategoria } from 'src/modules/insumos/entities/semillaCategoria.entity';
 
 export const databaseProviders = [
   {
@@ -30,7 +31,8 @@ export const databaseProviders = [
         Parcela, 
         Insumo, 
         Categoria, 
-        UnidadDeMedida, 
+        UnidadDeMedida,
+        SemillaCategoria,
         Cultivo, 
         Campana, 
         Actividad, 

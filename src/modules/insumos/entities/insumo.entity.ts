@@ -7,6 +7,7 @@ import { Campana } from 'src/modules/campanas/entities/campana.entity';
 import { InsumoActividad } from 'src/modules/actividades/entities/insumoActividad.entity';
 import { Actividad } from 'src/modules/actividades/entities/actividad.entity';
 import { Stock } from 'src/modules/stock/entities/stock.entity';
+import { SemillaCategoria } from './semillaCategoria.entity';
 
 @Table({
     tableName: 'insumos'
@@ -79,5 +80,14 @@ export class Insumo extends Model {
         onDelete: 'CASCADE'
     })
     stocks: Stock[];
+
+    @ForeignKey(()=> SemillaCategoria)
+    @Column({
+        type: DataType.UUID
+    })
+    idSemillaCategoria: string;
+
+    @BelongsTo(()=> SemillaCategoria)
+    semillaCategoria: SemillaCategoria;
 }
  
