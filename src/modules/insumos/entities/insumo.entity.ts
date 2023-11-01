@@ -83,9 +83,9 @@ export class Insumo extends Model {
 
     @ForeignKey(()=> SemillaCategoria)
     @Column({
-        type: DataType.UUID
+        type: DataType.INTEGER
     })
-    idSemillaCategoria: string;
+    idSemillaCategoria: number;
 
     @BelongsTo(()=> SemillaCategoria)
     semillaCategoria: SemillaCategoria;

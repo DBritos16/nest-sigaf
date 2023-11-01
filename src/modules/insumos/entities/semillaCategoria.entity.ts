@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, Column, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, HasMany, AutoIncrement } from 'sequelize-typescript';
 import { Insumo } from './insumo.entity';
 
 
@@ -7,11 +7,11 @@ import { Insumo } from './insumo.entity';
 })
 export class SemillaCategoria extends Model {
     @PrimaryKey
+    @AutoIncrement
     @Column({
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4
+        type: DataType.INTEGER
     })
-    idSemillaCategoria: string;
+    idSemillaCategoria: number;
 
     @Column
     nombre: string;
