@@ -5,10 +5,15 @@ import { Insumo } from '../insumos/entities/insumo.entity';
 import sequelize from 'sequelize';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { SemillaCategoria } from '../insumos/entities/semillaCategoria.entity';
+import { Venta } from './entities/ventas.entity';
 
 @Injectable()
 export class StockService {
-  constructor(@Inject('stockRepository') private stockModel: typeof Stock ){}
+  constructor(
+    @Inject('stockRepository') private stockModel: typeof Stock,
+    @Inject('ventaRepository') private ventaModel: typeof Venta
+    ){}
+
 
 
   getStock(idEstablecimiento){
@@ -28,7 +33,6 @@ export class StockService {
     });
   }
 
-
   async postStock(stock: CreateStockDto){
 
     const existStock = await this.stockModel.findOne({
@@ -40,6 +44,21 @@ export class StockService {
     if(!existStock) return this.stockModel.create({...stock});
 
     return existStock.update({stock: sequelize.literal(`stock + ${stock.stock}`)});
+
+  }
+
+  venderStock(data: {idStock: string, cantidad: number, precio: number}){
+
+     this.stockModel.update({
+      stock: sequelize.literal(`stock - ${data.cantidad}`),
+      vendidos: sequelize.literal(`vendidos + ${data.cantidad}`)
+    }, {
+      where: {
+        idStock: data.idStock
+      }
+    });
+
+    return this.ventaModel.create(data)
 
   }
 

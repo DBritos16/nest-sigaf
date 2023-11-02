@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { StockService } from './stock.service';
 import { StockController } from './stock.controller';
-import { stockProviders } from './stock.providers';
+import { stockProviders, ventaProviders } from './stock.providers';
 import { authProviders } from '../usuarios/usuarios.providers';
 import { AuthService } from '../auth/auth.service';
 import { EstablecimientosService } from '../establecimientos/establecimientos.service';
@@ -9,7 +9,7 @@ import { establecimientoProviders } from '../establecimientos/establecimiento.pr
 
 @Module({
   controllers: [StockController],
-  providers: [StockService, ...stockProviders,
+  providers: [StockService, ...stockProviders, ...ventaProviders,
      ...authProviders, AuthService,
     ...establecimientoProviders, ],
 })

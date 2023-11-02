@@ -13,7 +13,7 @@ import { insumoProviders } from '../insumos/insumos.providers';
 import { InsumosService } from '../insumos/insumos.service';
 import { actividadesProviders, empleadoActividadProviders, insumoActividadProviders } from '../actividades/actividades.providers';
 import { ActividadesService } from '../actividades/actividades.service';
-import { stockProviders } from '../stock/stock.providers';
+import { stockProviders, ventaProviders } from '../stock/stock.providers';
 import { StockService } from '../stock/stock.service';
 
 @Module({
@@ -25,7 +25,7 @@ import { StockService } from '../stock/stock.service';
     ...actividadesProviders, ActividadesService,
     ...insumoActividadProviders,
     ...empleadoActividadProviders,
-    ...stockProviders, StockService
+    ...stockProviders, ...ventaProviders, StockService
   ],
 })
 export class CultivosModule {}

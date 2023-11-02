@@ -15,7 +15,7 @@ import { EmpleadoActividad } from 'src/modules/actividades/entities/empleadoActi
 import { InsumoActividad } from 'src/modules/actividades/entities/insumoActividad.entity';
 import { Stock } from 'src/modules/stock/entities/stock.entity';
 import { SemillaCategoria } from 'src/modules/insumos/entities/semillaCategoria.entity';
-import { Ventas } from 'src/modules/stock/entities/ventas.entity';
+import { Venta } from 'src/modules/stock/entities/ventas.entity';
 
 export const databaseProviders = [
   {
@@ -41,7 +41,7 @@ export const databaseProviders = [
         EmpleadoActividad, 
         InsumoActividad,
         Stock,
-        Ventas
+        Venta
       ]);
       await sequelize.sync({force: false});
 

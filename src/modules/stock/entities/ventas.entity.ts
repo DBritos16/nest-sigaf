@@ -4,7 +4,7 @@ import { Stock } from './stock.entity';
 @Table({
     tableName: 'ventas'
 })
-export class Ventas extends Model {
+export class Venta extends Model {
     
     @PrimaryKey
     @Column({

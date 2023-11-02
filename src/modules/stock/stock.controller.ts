@@ -17,5 +17,13 @@ export class StockController {
     return res.json(stock);
   }
 
+  @Post('vender')
+  async venderStock(@Body() data: {idStock: string, cantidad: number, precio: number}, @Res() res: Response){
+
+    const venta = await this.stockService.venderStock(data);
+
+    return res.json(venta);
+  }
+
 
 }
