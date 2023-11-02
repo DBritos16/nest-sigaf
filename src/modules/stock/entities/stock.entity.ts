@@ -1,6 +1,7 @@
-import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
+import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo, HasMany} from 'sequelize-typescript';
 import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
+import { Ventas } from './ventas.entity';
 
 @Table({
     tableName: 'stock'
@@ -43,4 +44,9 @@ export class Stock extends Model {
 
     @BelongsTo(()=> Establecimiento)
     establecimiento: Establecimiento
+
+    @HasMany(()=> Ventas, {
+        onDelete: 'CASCADE'
+    })
+    ventas: Ventas[]
 }
