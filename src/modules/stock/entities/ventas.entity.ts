@@ -1,5 +1,6 @@
 import { Table, Model, PrimaryKey, Column, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
 import { Stock } from './stock.entity';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 
 @Table({
     tableName: 'ventas'
@@ -32,4 +33,14 @@ export class Venta extends Model {
 
     @BelongsTo(()=> Stock)
     stock: Stock
+
+
+    @ForeignKey(()=> Establecimiento)
+    @Column({
+        type: DataType.UUID
+    })
+    idEstablecimiento: string;
+
+    @BelongsTo(()=> Establecimiento)
+    establecimiento: Establecimiento
 }

@@ -3,6 +3,7 @@ import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
 import { Stock } from 'src/modules/stock/entities/stock.entity';
+import { Venta } from 'src/modules/stock/entities/ventas.entity';
 import { Empresa } from 'src/modules/usuarios/entities/empresa.entity';
 
 @Table({
@@ -75,4 +76,9 @@ export class Establecimiento extends Model {
         onDelete: 'CASCADE'
     })
     stock: Stock[]
+
+    @HasMany(()=> Venta, {
+        onDelete: 'CASCADE'
+    })
+    ventas: Venta[]
 }

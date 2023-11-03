@@ -18,12 +18,18 @@ export class StockController {
   }
 
   @Post('vender')
-  async venderStock(@Body() data: {idStock: string, cantidad: number, precio: number}, @Res() res: Response){
+  async venderStock(@Body() data: {idStock: string, cantidad: number, precio: number}, @Req() req, @Res() res: Response){
 
-    const venta = await this.stockService.venderStock(data);
+    const venta = await this.stockService.venderStock({...data, idEstablecimiento: req.idEstablecimiento});
 
     return res.json(venta);
   }
 
+  @Get('/ventas')
+  async getVentas(@Req() req, @Res() res: Response){
+    const ventas = await this.stockService.getVentas(req.idEstablecimiento);
+
+    return res.json(ventas);
+  }
 
 }

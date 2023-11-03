@@ -15,8 +15,7 @@ export class StockService {
     ){}
 
 
-
-  getStock(idEstablecimiento){
+  getStock(idEstablecimiento: string){
     return this.stockModel.findAll({
       where: {idEstablecimiento},
       include: [{
@@ -47,7 +46,7 @@ export class StockService {
 
   }
 
-  venderStock(data: {idStock: string, cantidad: number, precio: number}){
+  venderStock(data: {idStock: string, cantidad: number, precio: number, idEstablecimiento: string}){
 
      this.stockModel.update({
       stock: sequelize.literal(`stock - ${data.cantidad}`),
@@ -62,4 +61,15 @@ export class StockService {
 
   }
 
+  getVentas(idEstablecimiento: string){
+    return this.ventaModel.findAll({
+      where: {
+        idEstablecimiento
+      },
+      include: [{
+        model: Stock,
+        include: [Insumo]
+      }]
+    });
+  };
 }
