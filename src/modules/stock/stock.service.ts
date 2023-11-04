@@ -6,6 +6,7 @@ import sequelize, { where } from 'sequelize';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { SemillaCategoria } from '../insumos/entities/semillaCategoria.entity';
 import { Venta } from './entities/ventas.entity';
+import { CreateVentaDto } from './dto/create-venta.dto';
 
 @Injectable()
 export class StockService {
@@ -32,6 +33,34 @@ export class StockService {
     });
   }
 
+  getStockById(idStock: string){
+    return this.stockModel.findOne({
+      where: {idStock},
+      include: [{
+        model: Insumo,
+        include: [{
+          model: SemillaCategoria,
+          attributes: ['nombre']
+        }, {
+          model: UnidadDeMedida,
+          attributes: ['nombre']
+        }]
+      }],
+    });
+  }
+
+  getVentaById(idVenta: string){
+    return this.ventaModel.findOne({
+      where: {
+        idVenta
+      },
+      include: [{
+        model: Stock,
+        include: [Insumo]
+      }]
+    });
+  }
+
   async postStock(stock: CreateStockDto){
 
     const existStock = await this.stockModel.findOne({
@@ -40,13 +69,20 @@ export class StockService {
       }
     });
 
-    if(!existStock) return this.stockModel.create({...stock});
+    let newStock: CreateStockDto | null = null;
 
-    return existStock.update({stock: sequelize.literal(`stock + ${stock.stock}`)});
+    if(!existStock) {
+      newStock = await this.stockModel.create({...stock})
+    } else {
+      newStock = await existStock.update({stock: sequelize.literal(`stock + ${stock.stock}`)})
+    }
+
+
+    return this.getStockById(newStock.idStock);
 
   }
 
-  venderStock(data: {idStock: string, cantidad: number, precio: number, idEstablecimiento: string}){
+  async venderStock(data: CreateVentaDto){
 
      this.stockModel.update({
       stock: sequelize.literal(`stock - ${data.cantidad}`),
@@ -57,7 +93,15 @@ export class StockService {
       }
     });
 
-    return this.ventaModel.create(data)
+     const ventaId = await this.ventaModel.create({...data})
+
+     const stock = await this.getStockById(data.idStock);
+     const venta = await this.getVentaById(ventaId.idVenta);
+
+     return {
+      stock,
+      venta
+     }
 
   }
 
@@ -73,6 +117,16 @@ export class StockService {
     });
   };
 
+  async getStockVenta(idEstablecimiento: string){
+    const stock = await this.getStock(idEstablecimiento);
+    const ventas = await this.getVentas(idEstablecimiento);
+
+    return {
+      stock,
+      ventas
+    }
+  }
+
 
   async deshacerVenta(idVenta: string){
     const ventaCancelada = await this.ventaModel.update({isActive: false},{
@@ -82,15 +136,19 @@ export class StockService {
     })
 
 
-    await this.stockModel.update({
+    const stockUpdate = await this.stockModel.update({
       stock: sequelize.literal(`stock + ${ventaCancelada[1][0].cantidad}`),
       vendidos: sequelize.literal(`vendidos - ${ventaCancelada[1][0].cantidad}`)
     }, {
       where: {
         idStock: ventaCancelada[1][0].idStock
-      }
+      },
+      returning: true
     })
 
-    return ventaCancelada[0][1];
+    return {
+      venta: ventaCancelada[1][0],
+      stock: stockUpdate[1][0]
+    }
   }
 }

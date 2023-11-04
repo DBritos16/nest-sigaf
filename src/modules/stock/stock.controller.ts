@@ -4,11 +4,22 @@ import { StockService } from './stock.service';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { EstableciemientosGuard } from '../auth/guards/estableciemientos.guard';
+import { get } from 'http';
+import { CreateVentaDto } from './dto/create-venta.dto';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('stock')
 export class StockController {
   constructor(private readonly stockService: StockService) {}
+
+
+  @Get('/all')
+    async getStockVentas(@Req() req, @Res() res: Response){
+      const todo = await this.stockService.getStockVenta(req.idEstablecimiento);
+
+      return res.json(todo);
+    }
+
 
   @Get()
   async getPost(@Req() req, @Res() res: Response){
@@ -18,7 +29,7 @@ export class StockController {
   }
 
   @Post('vender')
-  async venderStock(@Body() data: {idStock: string, cantidad: number, precio: number}, @Req() req, @Res() res: Response){
+  async venderStock(@Body() data: CreateVentaDto, @Req() req, @Res() res: Response){
 
     const venta = await this.stockService.venderStock({...data, idEstablecimiento: req.idEstablecimiento});
 
@@ -35,9 +46,9 @@ export class StockController {
 
   @Put('/cancelar/:id')
   async deshacerVenta(@Param('id') idVenta: string, @Res() res: Response){
-    await this.stockService.deshacerVenta(idVenta);
+    const data = await this.stockService.deshacerVenta(idVenta);
 
-    res.json({message: 'Venta cancelada'});
+    res.json(data);
   }
 
 }
