@@ -51,4 +51,12 @@ export class StockController {
     res.json(data);
   }
 
+
+  @Delete('/venta/:id')
+  async deleteVenta(@Param('id') idVenta: string, @Res() res: Response){
+    const data = await this.stockService.eliminarVenta(idVenta);
+
+    res.json(data);
+  }
+
 }

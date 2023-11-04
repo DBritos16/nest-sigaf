@@ -151,4 +151,14 @@ export class StockService {
       stock: stockUpdate[1][0]
     }
   }
+
+
+  eliminarVenta(idVenta: string){
+    return this.ventaModel.destroy({
+      where: {
+        idVenta,
+        isActive: false
+      }
+    });
+  }
 }
