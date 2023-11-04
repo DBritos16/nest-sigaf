@@ -25,6 +25,11 @@ export class Venta extends Model {
     })
     precio: number;
 
+    @Column({
+        defaultValue: true
+    })
+    isActive: boolean
+
     @ForeignKey(()=> Stock)
     @Column({
         type: DataType.UUID

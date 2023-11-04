@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Res, Put } from '@nestjs/common';
 import { Response } from 'express'
 import { StockService } from './stock.service';
 import { CreateStockDto } from './dto/create-stock.dto';
@@ -25,11 +25,19 @@ export class StockController {
     return res.json(venta);
   }
 
-  @Get('/ventas')
+  @Get('/ventas') 
   async getVentas(@Req() req, @Res() res: Response){
     const ventas = await this.stockService.getVentas(req.idEstablecimiento);
 
     return res.json(ventas);
+  }
+
+
+  @Put('/cancelar/:id')
+  async deshacerVenta(@Param('id') idVenta: string, @Res() res: Response){
+    await this.stockService.deshacerVenta(idVenta);
+
+    res.json({message: 'Venta cancelada'});
   }
 
 }

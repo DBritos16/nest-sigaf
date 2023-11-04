@@ -2,7 +2,7 @@ import { Injectable, Inject} from '@nestjs/common';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { Stock } from './entities/stock.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
-import sequelize from 'sequelize';
+import sequelize, { where } from 'sequelize';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { SemillaCategoria } from '../insumos/entities/semillaCategoria.entity';
 import { Venta } from './entities/ventas.entity';
@@ -72,4 +72,25 @@ export class StockService {
       }]
     });
   };
+
+
+  async deshacerVenta(idVenta: string){
+    const ventaCancelada = await this.ventaModel.update({isActive: false},{
+      where: {
+        idVenta
+      }, returning: true
+    })
+
+
+    await this.stockModel.update({
+      stock: sequelize.literal(`stock + ${ventaCancelada[1][0].cantidad}`),
+      vendidos: sequelize.literal(`vendidos - ${ventaCancelada[1][0].cantidad}`)
+    }, {
+      where: {
+        idStock: ventaCancelada[1][0].idStock
+      }
+    })
+
+    return ventaCancelada[0][1];
+  }
 }
