@@ -57,6 +57,12 @@ export class webSocketGateway
     actividad(client: Socket, data: any) {
         client.to(`${data.id}`).emit('new_actividad', data.response);
     }
+
+    @SubscribeMessage('cosechar')
+    cosecha(client: Socket, data: any) {
+        client.to(`${data.id}`).emit('new_cosecha', data.response);
+    }
+
     
     @SubscribeMessage('msg')
     message(client: Socket, data: any) {
