@@ -63,6 +63,12 @@ export class webSocketGateway
         client.to(`${data.id}`).emit('new_cosecha', data.response);
     }
 
+    @SubscribeMessage('venta')
+    venta(client: Socket, data: any) {
+        client.to(`${data.id}`).emit('new_venta', data.response);
+    }
+    
+
     
     @SubscribeMessage('msg')
     message(client: Socket, data: any) {
