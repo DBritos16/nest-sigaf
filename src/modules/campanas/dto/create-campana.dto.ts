@@ -3,4 +3,5 @@ export class CreateCampanaDto {
     final: Date;
     isActive?: boolean;
     idInsumo: string;
+    idEstablecimiento?: string;
 }

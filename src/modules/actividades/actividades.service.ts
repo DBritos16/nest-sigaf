@@ -8,6 +8,8 @@ import { Categoria } from '../insumos/entities/categoria.entity';
 import { EmpleadoActividad } from './entities/empleadoActividad.entity';
 import { Empleado } from '../empleados/entities/empleado.entity';
 import sequelize from 'sequelize';
+import { Campana } from '../campanas/entities/campana.entity';
+import { Cultivo } from '../cultivos/entities/cultivo.entity';
 
 @Injectable()
 export class ActividadesService {
@@ -18,6 +20,33 @@ export class ActividadesService {
     @Inject('empleadoActividadRepository') private empleadoActividadModel: typeof EmpleadoActividad
     ){}
  
+
+  getAllACtividades(idEstablecimiento: string) {
+
+    return this.actividadModel.findAll({
+      include: [{
+        required: true,
+        model: Cultivo,
+        include: [{
+          model: Campana,
+          where: { idEstablecimiento }
+        }]
+      }, {
+        model: Insumo,
+        attributes: ['nombre'],
+        include: [{
+          model: UnidadDeMedida,
+          attributes: ['nombre']
+        }, {
+          model: Categoria,
+          attributes: ['nombre']
+        }],
+      }, Empleado
+      ]
+    });
+
+
+  }
 
   getActividades(idCultivo: string): Promise<Actividad[]>{
     return this.actividadModel.findAll({

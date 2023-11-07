@@ -1,5 +1,6 @@
 import { Table, Model, PrimaryKey, Column, DataType, HasMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Cultivo } from 'src/modules/cultivos/entities/cultivo.entity';
+import { Establecimiento } from 'src/modules/establecimientos/entities/establecimiento.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 
 @Table({
@@ -42,4 +43,13 @@ export class Campana extends Model {
 
     @BelongsTo(()=>Insumo)
     insumo: Insumo;
+
+    @ForeignKey(()=> Establecimiento)
+    @Column({ 
+        type: DataType.UUID,
+    })
+    idEstablecimiento: string;
+
+    @BelongsTo(()=>Establecimiento)
+    establecimiento: Establecimiento;
 }

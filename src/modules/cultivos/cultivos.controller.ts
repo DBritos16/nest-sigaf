@@ -39,11 +39,11 @@ export class CultivosController {
     const final = new Date();
     final.setMonth(final.getMonth() + cultivo.duracion);
 
-    const isCampanaActive = await this.campanasService.isCampanaActive(cultivo.idInsumo);
+    const isCampanaActive = await this.campanasService.isCampanaActive(cultivo.idInsumo, req.idEstablecimiento);
     let idCampana = '';
 
     if(!isCampanaActive){
-      const campana = await this.campanasService.postCampana({final, idInsumo: cultivo.idInsumo});
+      const campana = await this.campanasService.postCampana({final, idInsumo: cultivo.idInsumo, idEstablecimiento: req.idEstablecimiento});
       idCampana = campana.idCampana;
     } else {
       idCampana = isCampanaActive.idCampana;
