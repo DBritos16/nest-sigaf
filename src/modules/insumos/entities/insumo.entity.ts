@@ -8,6 +8,7 @@ import { InsumoActividad } from 'src/modules/actividades/entities/insumoActivida
 import { Actividad } from 'src/modules/actividades/entities/actividad.entity';
 import { Stock } from 'src/modules/stock/entities/stock.entity';
 import { SemillaCategoria } from './semillaCategoria.entity';
+import { Egreso } from 'src/modules/contabilidad/entities/egreso.entity';
 
 @Table({
     tableName: 'insumos'
@@ -89,5 +90,8 @@ export class Insumo extends Model {
 
     @BelongsTo(()=> SemillaCategoria)
     semillaCategoria: SemillaCategoria;
+
+    @HasMany(()=> Egreso)
+    ingresos: Egreso[]
 }
  

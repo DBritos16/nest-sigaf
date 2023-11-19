@@ -6,11 +6,16 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 import { EstableciemientosGuard } from '../auth/guards/estableciemientos.guard';
 import { get } from 'http';
 import { CreateVentaDto } from './dto/create-venta.dto';
+import { ContabilidadService } from '../contabilidad/contabilidad.service';
+import { Venta } from './entities/ventas.entity';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('stock')
 export class StockController {
-  constructor(private readonly stockService: StockService) {}
+  constructor(
+    private readonly stockService: StockService,
+    private readonly contabilidadService: ContabilidadService
+    ) {}
 
 
   @Get('/all')
@@ -31,7 +36,9 @@ export class StockController {
   @Post('vender')
   async venderStock(@Body() data: CreateVentaDto, @Req() req, @Res() res: Response){
 
-    const venta = await this.stockService.venderStock({...data, idEstablecimiento: req.idEstablecimiento});
+    const venta: any = await this.stockService.venderStock({...data, idEstablecimiento: req.idEstablecimiento});
+
+    await this.contabilidadService.createIngreso({idVenta: venta.venta.idVenta, idEstablecimiento: req.idEstablecimiento});
 
     return res.json(venta);
   }

@@ -66,7 +66,6 @@ export class CultivosController {
 
     const parcelaUpdated = await this.parcelasService.editParcela({enUso: true, color: 'green'}, cultivo.idParcela);
 
-
     return res.json(parcelaUpdated[1][0]);
 
   }

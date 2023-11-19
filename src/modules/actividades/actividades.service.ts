@@ -86,10 +86,11 @@ export class ActividadesService {
   async postActividad(actividad: CreateActividadeDto){
     const newActividad = await this.actividadModel.create({...actividad});
 
+    console.log("first", actividad)
+
     const insumosActividades: any[] = actividad.idInsumos.map((insumo: any) => {
       return {
         ...insumo,
-        stockUtilizado: insumo.utilizado,
         idActividad: newActividad.idActividad,
       }
     })
@@ -106,7 +107,7 @@ export class ActividadesService {
 
     insumosActividades.forEach(async insumo => {
       console.log(insumo)
-      await this.insumoModel.update({stockUtilizado: sequelize.literal(`"stockUtilizado" + ${parseInt(insumo.utilizado)}`)}, {where: {idInsumo: insumo.idInsumo}});
+      await this.insumoModel.update({stockUtilizado: sequelize.literal(`"stockUtilizado" + ${parseInt(insumo.stockUtilizado)}`)}, {where: {idInsumo: insumo.idInsumo}});
     })
     
     if(actividad.empleados){

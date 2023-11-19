@@ -1,5 +1,7 @@
 import { Table, Model, DataType, PrimaryKey, Column, BelongsTo, ForeignKey, HasMany } from 'sequelize-typescript'
 import { Campana } from 'src/modules/campanas/entities/campana.entity';
+import { Egreso } from 'src/modules/contabilidad/entities/egreso.entity';
+import { Ingreso } from 'src/modules/contabilidad/entities/ingreso.entity';
 import { Empleado } from 'src/modules/empleados/entities/empleado.entity';
 import { Insumo } from 'src/modules/insumos/entities/insumo.entity';
 import { Parcela } from 'src/modules/parcelas/entities/parcela.entity';
@@ -85,4 +87,14 @@ export class Establecimiento extends Model {
         onDelete: 'CASCADE'
     })
     ventas: Venta[]
+
+    @HasMany(()=> Egreso, {
+        onDelete: 'CASCADE'
+    })
+    egresos: Egreso[]
+
+    @HasMany(()=> Ingreso, {
+        onDelete: 'CASCADE'
+    })
+    ingresos: Ingreso[]
 }
