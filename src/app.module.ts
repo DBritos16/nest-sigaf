@@ -15,13 +15,14 @@ import { EmpleadosModule } from './modules/empleados/empleados.module';
 import { StockModule } from './modules/stock/stock.module';
 import { webSocketGateway } from './modules/webSocket/webSocket.gateway';
 import { ContabilidadModule } from './modules/contabilidad/contabilidad.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env'
     }), MorganModule,
-    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule, StockModule, webSocketGateway, ContabilidadModule],
+    DatabaseModule, UsuariosModule, AuthModule, EstablecimientosModule, ParcelasModule, InsumosModule, CultivosModule, CampanasModule, ActividadesModule, EmpleadosModule, StockModule, webSocketGateway, ContabilidadModule, CloudinaryModule],
   controllers: [],
   providers: [
     { 

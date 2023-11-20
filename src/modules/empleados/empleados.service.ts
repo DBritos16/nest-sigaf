@@ -13,4 +13,8 @@ export class EmpleadosService {
             }
         });
     }
+
+    createEmpleado(empleado: CreateEmpleadoDto){
+        return this.empleadoModel.create({...empleado});
+    }
 }

@@ -7,4 +7,5 @@ export class CreateEmpleadoDto {
     rol: string;
     correo?:string;
     password?:string;
+    idEstablecimiento: string;
 }
