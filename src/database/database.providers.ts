@@ -49,7 +49,7 @@ export const databaseProviders = [
       ]);
       await sequelize.sync({force: false});
 
-      await Categoria.findCreateFind({ where: { nombre: 'Semillas' } });
+      /* await Categoria.findCreateFind({ where: { nombre: 'Semillas' } });
       await Categoria.findCreateFind({ where: { nombre: 'Fertilizantes' } });
       await Categoria.findCreateFind({ where: { nombre: 'Quimicos' } });
       await UnidadDeMedida.findCreateFind({where: {nombre: 'Kilogramos'}});
@@ -57,7 +57,7 @@ export const databaseProviders = [
       await SemillaCategoria.findCreateFind({where: {nombre: 'Frutas'}});
       await SemillaCategoria.findCreateFind({where: {nombre: 'Verduras'}});
       await SemillaCategoria.findCreateFind({where: {nombre: 'Cereales y Granos'}});
-      await SemillaCategoria.findCreateFind({where: {nombre: 'Hierbass'}});
+      await SemillaCategoria.findCreateFind({where: {nombre: 'Hierbass'}}); */
 
       
       console.log('BD connected')

@@ -6,6 +6,8 @@ import { CreateEgresoDto } from './dto/create-egreso.dto';
 import { Venta } from '../stock/entities/ventas.entity';
 import { Stock } from '../stock/entities/stock.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
+import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
+import { Categoria } from '../insumos/entities/categoria.entity';
 
 @Injectable()
 export class ContabilidadService {
@@ -15,7 +17,18 @@ export class ContabilidadService {
     ){}
 
     async getContabilidad(idEstablecimiento: string) {
-        const egreso = await this.egresoModel.findAll({ where: { idEstablecimiento } });
+        const egreso = await this.egresoModel.findAll({ where: { idEstablecimiento },
+        include: [{
+            model: Insumo,
+            attributes: ['nombre'],
+            include: [{
+                model: UnidadDeMedida,
+                attributes: ['nombre']
+            }, {
+                model: Categoria,
+                attributes: ['nombre']
+            }]
+        }] });
         const ingreso = await this.ingresoModel.findAll({ 
             where: { idEstablecimiento },
             include: [{

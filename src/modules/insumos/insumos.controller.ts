@@ -5,11 +5,15 @@ import { CreateInsumoDto } from './dto/create-insumo.dto';
 import { ReqInsumoDto } from './dto/req-insumo.dto';
 import { AuthGuard } from 'src/modules/auth/guards/auth.guard';
 import { EstableciemientosGuard } from 'src/modules/auth/guards/estableciemientos.guard';
+import { ContabilidadService } from '../contabilidad/contabilidad.service';
 
 @UseGuards(AuthGuard, EstableciemientosGuard)
 @Controller('insumos')
 export class InsumosController {
-  constructor(private readonly insumosService: InsumosService) {}
+  constructor(
+    private readonly insumosService: InsumosService,
+    private readonly contabilidadService: ContabilidadService
+    ) {}
 
   @Get()
   async getInsumos(@Req() req: ReqInsumoDto, @Res() res: Response){
@@ -29,6 +33,8 @@ export class InsumosController {
   @Post()
   async postInsumo(@Body() insumo: CreateInsumoDto,@Req() req: ReqInsumoDto, @Res() res: Response){
     const newInsumo = await this.insumosService.postInsuomo({...insumo, idEstablecimiento: req.idEstablecimiento});
+
+    await this.contabilidadService.createEgreso({idEstablecimiento: req.idEstablecimiento, idInsumo: newInsumo.idInsumo, monto: newInsumo.precio})
     
     return res.json(newInsumo);
   }

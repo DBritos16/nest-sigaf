@@ -14,6 +14,11 @@ export class Egreso extends Model {
     })
     idEgreso: string;
 
+    @Column({
+        type: DataType.FLOAT
+    })
+    monto: number;
+
     @ForeignKey(()=> Insumo)
     @Column({
         type: DataType.UUID

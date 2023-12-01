@@ -1,4 +1,5 @@
 export class CreateEgresoDto {
-    idVenta?: string;
+    idInsumo?: string;
+    monto: number;
     idEstablecimiento?: string;
 }
