@@ -16,6 +16,9 @@ export class UnidadDeMedida extends Model {
     @Column
     nombre: string;
 
+    @Column
+    isoNombre: string
+
     @HasMany(()=> Insumo) 
     insumos: Insumo[]
 }

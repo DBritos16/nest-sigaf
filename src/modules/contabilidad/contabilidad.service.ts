@@ -23,7 +23,7 @@ export class ContabilidadService {
             attributes: ['nombre'],
             include: [{
                 model: UnidadDeMedida,
-                attributes: ['nombre']
+                attributes: ['nombre', 'isoNombre']
             }, {
                 model: Categoria,
                 attributes: ['nombre']

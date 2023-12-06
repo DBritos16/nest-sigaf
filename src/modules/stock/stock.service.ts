@@ -26,7 +26,7 @@ export class StockService {
           attributes: ['nombre']
         }, {
           model: UnidadDeMedida,
-          attributes: ['nombre']
+          attributes: ['nombre', 'isoNombre']
         }]
       }],
     
@@ -43,7 +43,7 @@ export class StockService {
           attributes: ['nombre']
         }, {
           model: UnidadDeMedida,
-          attributes: ['nombre']
+          attributes: ['nombre', 'isoNombre']
         }]
       }],
     });
