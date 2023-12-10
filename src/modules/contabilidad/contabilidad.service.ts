@@ -8,6 +8,7 @@ import { Stock } from '../stock/entities/stock.entity';
 import { Insumo } from '../insumos/entities/insumo.entity';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { Categoria } from '../insumos/entities/categoria.entity';
+import { SemillaCategoria } from '../insumos/entities/semillaCategoria.entity';
 
 @Injectable()
 export class ContabilidadService {
@@ -35,7 +36,13 @@ export class ContabilidadService {
                 model: Venta,
                 include: [{
                     model: Stock,
-                    include: [Insumo]
+                    include: [{
+                        model: Insumo,
+                        include: [{
+                            model: SemillaCategoria,
+                            attributes: ['nombre']
+                        }]
+                    }]
                 }]
             }]
         });
