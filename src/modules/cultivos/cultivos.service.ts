@@ -6,10 +6,38 @@ import { Campana } from '../campanas/entities/campana.entity';
 import { Actividad } from '../actividades/entities/actividad.entity';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { Categoria } from '../insumos/entities/categoria.entity';
+import { Parcela } from '../parcelas/entities/parcela.entity';
 
 @Injectable()
 export class CultivosService {
   constructor(@Inject('cultivosRepository') private cultivoModel: typeof Cultivo){}
+
+
+  getCultivos(idEstablecimiento: string){
+    return this.cultivoModel.findAll({
+      include: [Insumo, Campana, {
+        model: Parcela,
+        where: {
+          idEstablecimiento
+        },
+         required: true
+      }, {
+        model: Actividad,
+        include: [{
+          model: Insumo, 
+          attributes: ['nombre'],
+          include: [{
+            model: UnidadDeMedida,
+            attributes: ['nombre']
+          }, {
+            model: Categoria,
+            attributes: ['nombre']
+          }],
+        },
+      ]
+      }]
+    });
+  }
 
   getCultivo(idParcela: string){
     return this.cultivoModel.findOne({

@@ -24,6 +24,13 @@ export class CultivosController {
     ) {}
 
 
+    @Get()
+    async getCultivos(@Req() req, @Res() res: Response){
+      const cultivos = await this.cultivosService.getCultivos(req.idEstablecimiento);
+
+      return res.json(cultivos);
+    }
+    
 
     @Get(':idParcela')
     async getCultivo(@Param('idParcela') idParcela: string, @Res() res: Response){
