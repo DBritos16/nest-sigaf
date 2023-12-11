@@ -7,6 +7,7 @@ import { Actividad } from '../actividades/entities/actividad.entity';
 import { UnidadDeMedida } from '../insumos/entities/unidadDeMedida.entity';
 import { Categoria } from '../insumos/entities/categoria.entity';
 import { Parcela } from '../parcelas/entities/parcela.entity';
+import { Empleado } from '../empleados/entities/empleado.entity';
 
 @Injectable()
 export class CultivosService {
@@ -34,6 +35,35 @@ export class CultivosService {
             attributes: ['nombre']
           }],
         },
+      ]
+      }]
+    });
+  }
+
+  getCultivoById(idCultivo: string, idEstablecimiento: string){
+    return this.cultivoModel.findOne({
+      where: {
+        idCultivo
+      },
+      include: [Insumo, Campana, {
+        model: Parcela,
+        where: {
+          idEstablecimiento
+        },
+         required: true
+      }, {
+        model: Actividad,
+        include: [{
+          model: Insumo, 
+          attributes: ['nombre'],
+          include: [{
+            model: UnidadDeMedida,
+            attributes: ['nombre']
+          }, {
+            model: Categoria,
+            attributes: ['nombre']
+          }],
+        }, Empleado
       ]
       }]
     });

@@ -31,6 +31,12 @@ export class CultivosController {
       return res.json(cultivos);
     }
     
+    @Get('/info/:idCultivo')
+    async getCultivoById(@Param('idCultivo') idCultivo: string, @Req() req, @Res() res: Response){
+      const cultivo = await this.cultivosService.getCultivoById(idCultivo, req.idEstablecimiento);
+
+      return res.json(cultivo);
+    }
 
     @Get(':idParcela')
     async getCultivo(@Param('idParcela') idParcela: string, @Res() res: Response){
